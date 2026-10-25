@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1628">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Merchant dashboard (demo) · PayNova</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Dashboard-only rules. Kept here so styles.css needs no changes. */
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav .btn { min-height: 40px; padding: 0 12px; font-size: 0.88rem; }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(4, 9, 20, 0.35);
+    }
+    .tx-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+    .tx-table caption {
+      caption-side: top;
+      text-align: left;
+      padding: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .tx-table th,
+    .tx-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .tx-table th {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      background: rgba(147, 197, 253, 0.04);
+    }
+    .tx-table tbody tr:last-child td { border-bottom: none; }
+    .tx-table tbody tr:hover { background: rgba(147, 197, 253, 0.05); }
+    .tx-table td.num,
+    .tx-table th.num { text-align: right; }
+    .tx-table .mono { color: var(--text-soft); }
+
+    .summary { display: grid; gap: 12px; margin-bottom: 8px; }
+    .summary .stat strong { font-size: 1.6rem; }
+    .summary .stat small { color: var(--muted); font-size: 0.82rem; }
+
+    .table-section { margin-top: 20px; }
+    .table-section h2 { margin-bottom: 4px; }
+
+    @media (min-width: 640px) {
+      .summary { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="PayNova home"><span class="logo" aria-hidden="true">P</span>PayNova</a>
+    <nav class="topnav" aria-label="Main">
+      <a class="btn btn-ghost btn-sm" href="../index.html">Home</a>
+      <a class="btn btn-primary btn-sm" href="../checkout.html?order=DEMO-1001&amp;demo=1">Checkout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="demo-banner" role="note">
+      Mock data: every order and amount on this page is made up for testing. Nothing here is real.
+    </div>
+
+    <div class="dash-head">
+      <div>
+        <p class="muted">Demo Store (mock)</p>
+        <h1>Dashboard</h1>
+      </div>
+    </div>
+
+    <!-- Summary cards -->
+    <section class="summary" aria-label="Summary">
+      <div class="card stat">
+        <span class="muted">Total orders</span>
+        <strong>9</strong>
+        <small>Mock data</small>
+      </div>
+      <div class="card stat">
+        <span class="muted">Successful demo payments</span>
+        <strong>5</strong>
+        <small>Simulated, no money moved</small>
+      </div>
+      <div class="card stat">
+        <span class="muted">Pending demo payments</span>
+        <strong>1</strong>
+        <small>Simulated, no money moved</small>
+      </div>
+    </section>
+
+    <!-- Filters (the buttons will work once dashboard.js is replaced) -->
+    <div class="filters" role="group" aria-label="Filter orders">
+      <button class="chip is-active" type="button" data-filter="ALL" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-filter="PAID" aria-pressed="false">Success</button>
+      <button class="chip" type="button" data-filter="PENDING" aria-pressed="false">Pending</button>
+      <button class="chip" type="button" data-filter="FAILED" aria-pressed="false">Failed</button>
+      <button class="chip" type="button" data-filter="CANCELLED" aria-pressed="false">Cancelled</button>
+    </div>
+
+    <!-- Transaction table -->
+    <section class="card table-section" aria-labelledby="txHeading">
+      <h2 id="txHeading">Transactions</h2>
+      <div class="table-wrap">
+        <table class="tx-table">
+          <caption>Mock transactions. Demo statuses only.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Order ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="num">Amount</th>
+              <th scope="col">Demo status</th>
+            </tr>
+          </thead>
+          <tbody id="txRows">
+            <tr data-status="PAID">
+              <td class="mono">ORD-1042</td>
+              <td>25 Oct 2026, 08:42</td>
+              <td>Premium plan (monthly)</td>
+              <td class="num">₹1,499.00</td>
+              <td><span class="badge badge-paid">Demo success</span></td>
+            </tr>
+            <tr data-status="PAID">
+              <td class="mono">ORD-1041</td>
+              <td>25 Oct 2026, 07:15</td>
+              <td>Starter kit</td>
+              <td class="num">₹499.00</td>
+              <td><span class="badge badge-paid">Demo success</span></td>
+            </tr>
+            <tr data-status="PENDING">
+              <td class="mono">ORD-1040</td>
+              <td>24 Oct 2026, 21:05</td>
+              <td>Annual plan</td>
+              <td class="num">₹2,999.00</td>
+              <td><span class="badge badge-pending">Demo pending</span></td>
+            </tr>
+            <tr data-status="FAILED">
+              <td class="mono">ORD-1039</td>
+              <td>24 Oct 2026, 18:30</td>
+              <td>Add-on: extra seats</td>
+              <td class="num">₹999.00</td>
+              <td><span class="badge badge-failed">Demo failed</span></td>
+            </tr>
+            <tr data-status="PAID">
+              <td class="mono">ORD-1038</td>
+              <td>24 Oct 2026, 12:10</td>
+              <td>Premium plan (monthly)</td>
+              <td class="num">₹1,499.00</td>
+              <td><span class="badge badge-paid">Demo success</span></td>
+            </tr>
+            <tr data-status="PAID">
+              <td class="mono">ORD-1037</td>
+              <td>23 Oct 2026, 16:48</td>
+              <td>Add-on: extra seats</td>
+              <td class="num">₹999.00</td>
+              <td><span class="badge badge-paid">Demo success</span></td>
+            </tr>
+            <tr data-status="FAILED">
+              <td class="mono">ORD-1036</td>
+              <td>23 Oct 2026, 09:22</td>
+              <td>Starter kit</td>
+              <td class="num">₹499.00</td>
+              <td><span class="badge badge-failed">Demo failed</span></td>
+            </tr>
+            <tr data-status="PAID">
+              <td class="mono">ORD-1035</td>
+              <td>22 Oct 2026, 11:00</td>
+              <td>Starter kit</td>
+              <td class="num">₹499.00</td>
+              <td><span class="badge badge-paid">Demo success</span></td>
+            </tr>
+            <tr data-status="CANCELLED">
+              <td class="mono">ORD-1034</td>
+              <td>22 Oct 2026, 10:02</td>
+              <td>Premium plan (monthly)</td>
+              <td class="num">₹1,499.00</td>
+              <td><span class="badge badge-cancelled">Demo cancelled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine" style="margin-top: 12px;">
+        Mock data for layout testing. Live transactions will appear here only after the server verifies them (Phase 3 onward).
+      </p>
+    </section>
+
+    <p class="trust">Demo dashboard. Merchant login and live data arrive in Phase 3.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 PayNova · Test mode</p>
+  </footer>
+
+  <script src="../js/api.js"></script>
+</body>
+</html>
