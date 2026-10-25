@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1628">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Payment status · PayNova</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="PayNova home"><span class="logo" aria-hidden="true">P</span>PayNova</a>
+    <span class="lock">Payment status</span>
+  </header>
+
+  <main class="container narrow">
+    <!-- Shown by status.js only in demo mode (?demo=1). -->
+    <div id="demoBanner" class="demo-banner" role="note" hidden>
+      Demo result: no real money was moved and no payment provider was contacted.
+    </div>
+
+    <section class="card status-card" aria-live="polite" aria-labelledby="statusTitle">
+      <!-- Icon, title and text are set by status.js for each state -->
+      <div id="statusIcon" class="status-icon tone-info" aria-hidden="true">…</div>
+      <h1 id="statusTitle">Checking your payment</h1>
+      <p id="statusBody" class="muted">Please wait a moment.</p>
+
+      <div class="kv">
+        <span class="muted">Amount</span>
+        <strong id="amount">—</strong>
+      </div>
+      <div class="kv">
+        <span class="muted">Order</span>
+        <span id="orderId" class="mono">—</span>
+      </div>
+
+      <div class="status-actions">
+        <a id="primaryBtn" class="btn btn-primary btn-block" href="index.html" hidden>Continue</a>
+        <button id="checkAgain" class="btn btn-ghost btn-block" type="button" hidden>Check again</button>
+        <a class="btn btn-ghost btn-block" href="index.html">Back to home</a>
+      </div>
+    </section>
+
+    <p id="pollNote" class="trust" hidden>Checking for updates every few seconds…</p>
+    <div id="errorBox" class="notice notice-error" role="alert" hidden></div>
+
+    <p class="trust">Payment status is shown only after our server confirms it. Demo results are for testing only.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 PayNova · Test mode</p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/status.js"></script>
+</body>
+</html>
