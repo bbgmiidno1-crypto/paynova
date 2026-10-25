@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0f1f">
+  <meta name="description" content="PayNova: accept UPI, cards and net banking with secure hosted checkout.">
+  <title>PayNova · Payments for Indian businesses</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="logo">P</span>PayNova</a>
+    <a class="btn btn-ghost btn-sm" href="dashboard/index.html">Merchant login</a>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="pill">Test mode · No real money moves</span>
+      <h1>Get paid with <span class="grad">UPI, cards and net banking</span></h1>
+      <p class="lead">
+        PayNova gives your business one secure checkout page. Customers pay through a licensed
+        payment partner, and your dashboard marks an order as paid only after our server confirms it.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="checkout.html?order=DEMO-1001&amp;demo=1">Try a demo payment</a>
+        <a class="btn btn-ghost" href="dashboard/index.html?demo=1">View merchant dashboard</a>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Features">
+      <article class="card feature">
+        <span class="icon">UPI</span>
+        <h3>Pay by any UPI app</h3>
+        <p>Customers pay from the UPI app they already use, with no new account needed.</p>
+      </article>
+      <article class="card feature">
+        <span class="icon">CARD</span>
+        <h3>Debit and credit cards</h3>
+        <p>Card details are entered only on the payment partner's secure page. They never reach PayNova.</p>
+      </article>
+      <article class="card feature">
+        <span class="icon">NET</span>
+        <h3>Net banking</h3>
+        <p>Customers pay directly from their bank account through a secure bank login page.</p>
+      </article>
+      <article class="card feature">
+        <span class="icon">SAFE</span>
+        <h3>Server-verified payments</h3>
+        <p>Every payment is checked on the server before the order is marked as paid.</p>
+      </article>
+      <article class="card feature">
+        <span class="icon">MOB</span>
+        <h3>Built for phones</h3>
+        <p>Checkout and the dashboard are designed for small screens first.</p>
+      </article>
+      <article class="card feature">
+        <span class="icon">LOG</span>
+        <h3>Clear records</h3>
+        <p>Every order and its status are listed in one dashboard, with filters for paid, pending and failed.</p>
+      </article>
+    </section>
+
+    <section class="card" aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <ol class="steps">
+        <li><strong>Create an order</strong>Your system sends the amount and description to PayNova.</li>
+        <li><strong>Customer pays securely</strong>The customer chooses UPI, a card or net banking on the secure window.</li>
+        <li><strong>We confirm the payment</strong>The server verifies the payment, then updates the order status.</li>
+      </ol>
+    </section>
+
+    <p class="footer">© 2026 PayNova · Test mode</p>
+  </main>
+
+  <script src="js/api.js"></script>
+</body>
+</html>
